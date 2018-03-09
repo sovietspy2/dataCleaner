@@ -19,7 +19,7 @@ for argument in argv:
         try:
             file = open(argument+".txt", "r", encoding="utf8")
         except FileNotFoundError:
-            print("Error! No file with the name: "+argument +" (Provide filename without extenstion eg: german insted of german.txt) ")
+            print("Error! No file with the name: "+argument +" (Provide filename without extenstion eg: german instead of german.txt) ")
             sys.exit()
 
         file.seek(0)
