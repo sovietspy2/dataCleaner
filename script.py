@@ -2,6 +2,8 @@ from sys import argv
 import sys
 import re #regex
 import os
+import csv
+import pandas as pd
 
 
 def insert_str(string, str_to_insert, index):
@@ -14,6 +16,8 @@ if (len(argv))==1:
     print("Error! No params! Usage: script.py <filename> <filename> <filename> ")
     sys.exit()
 
+sentences = []
+languages = []
 
 for argument in argv:
     try:
@@ -31,16 +35,21 @@ for argument in argv:
         lines = file.readlines()
 
         #new file
-        new_file = open(new_file_name, "a+", encoding="utf8")
+        #new_file = open(new_file_name, "a+", encoding="utf8")
 
         for line in lines:
             new_line = re.split(r'\t+', line)[1]
-            new_line = insert_str(new_line, ","+argument, len(new_line)-1)
-            new_file.write(new_line)
+            new_line = new_line[0:len(new_line)-1]
+            sentences.append(new_line)
+            languages.append(argument)
+            #new_file.write(new_line)
         file.close()
     except EnvironmentError:
         print("Error! file in wrong format!")
         sys.exit()
+
+df = pd.DataFrame(data={"sentence":sentences, "language":languages})
+df.to_csv(new_file_name , sep=",", index=False, columns=["sentence", "language"])
 print("Cleaning completed successfully. New file created: "+os.getcwd()+"\\"+new_file_name)
 
 
