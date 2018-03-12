@@ -1,0 +1,4 @@
+1	dis is a test witout dot at the end
+2	wow ???? So many questions?
+3	THIS IS AMAZING!
+4	is this a bug, no dot at end again :(

@@ -3,6 +3,11 @@ import sys
 import re #regex
 import os
 
+
+def insert_str(string, str_to_insert, index):
+    return string[:index] + str_to_insert + string[index:]
+
+
 new_file_name = "clean_data.csv"
 
 if (len(argv))==1:
@@ -30,13 +35,13 @@ for argument in argv:
 
         for line in lines:
             new_line = re.split(r'\t+', line)[1]
-            new_line = new_line.replace( ".", ".,"+argument)
+            new_line = insert_str(new_line, ","+argument, len(new_line)-1)
             new_file.write(new_line)
         file.close()
-    except:
+    except EnvironmentError:
         print("Error! file in wrong format!")
         sys.exit()
-    print("Cleaning completed successfully. New file created: "+os.getcwd()+"\\"+new_file_name)
+print("Cleaning completed successfully. New file created: "+os.getcwd()+"\\"+new_file_name)
 
 
 
