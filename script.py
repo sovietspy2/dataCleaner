@@ -26,7 +26,7 @@ for argument in argv:
             continue
 
         try:
-            file = open(argument+".txt", "r", encoding="utf8")
+            file = open(argument+".txt", "r", encoding="utf-8")
         except FileNotFoundError:
             print("Error! No file with the name: "+argument +" (Provide filename without extenstion eg: german instead of german.txt) ")
             sys.exit()
@@ -49,7 +49,7 @@ for argument in argv:
         sys.exit()
 
 df = pd.DataFrame(data={"sentence":sentences, "language":languages})
-df.to_csv(new_file_name , sep=",", index=False, columns=["sentence", "language"])
+df.to_csv(new_file_name , sep=";", index=False, columns=["sentence", "language"], encoding="utf8")
 print("Cleaning completed successfully. New file created: "+os.getcwd()+"\\"+new_file_name)
 
 
